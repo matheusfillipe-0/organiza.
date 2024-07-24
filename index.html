@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Organizacional</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #4CAF50;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        form p {
+            margin: 10px 0;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        pre {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>SISTEMA ORGANIZACIONAL</h2>
+    
+    <form>
+        <p>Descrição :</p>
+        <input type="text" id="innome" required>
+        <p>Valor a pagar:</p>
+        <input type="number" id="invalor" required>
+        <input type="submit" value="Adicionar" class="button">
+    </form>
+    <pre></pre>
+    <h3></h3>
+
+    <script>
+        const form = document.querySelector("form");
+        const exibir = document.querySelector("pre");
+        const total = document.querySelector("h3");
+
+        let desc = [];
+        let val = [];
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const nome = form.innome.value;
+            const valor = form.invalor.value;
+
+            desc.push(nome);
+            val.push(parseFloat(valor));
+            let linha = "";
+
+            let soma = val.reduce((total, valor) => total + valor, 0);
+
+            for (let i = 0; i < desc.length; i++) {
+                linha = linha + desc[i] + " -- R$ " + val[i].toFixed(2) + "\n";
+            }
+
+            const resume = "TOTAL DE GASTOS  R$ " + soma.toFixed(2);
+
+            exibir.innerHTML = linha;
+            total.innerHTML = resume;
+
+            form.innome.value = "";
+            form.invalor.value = "";
+            form.innome.focus();
+        });
+    </script>
+</body>
+
+</html>
